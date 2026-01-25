@@ -1,0 +1,256 @@
+---
+title: "Forecast Path"
+---
+
+`forecast_path`
+
+This function analyses the causal structure of a time series to identify two structural states:
+
+- **Initiation:** Signals the emergence of a new causal trajectory, showing the start of a new causal chain.
+- **Persistence:** Validates the continuation of an established trajectory, indicating the current causal chain is still evolving.
+
+---
+
+#### Data Input 
+
+`Required data periods (N): 5000 preceding data periods + 1 future-step period (N=5001) 
+
+<Note>**FIFO Logic**: As a new data point arrives, the oldest is discarded. This **First-In, First-Out** method allows the algorithm to update its state space at every incremental step.</Note>
+
+
+#### Function Parameters
+
+| Parameter        | Type     | Default     | Required | Description                                                                                                                                                                                           |
+| :--------------- | :------- | :------- |  :------- :---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `timeframe_dependent`| `bool` | `False`    | `False`   | Determines the indexing method. If True, datetime column is expected. If 'False', sequential step-based index is required.                                                |
+| `time_series_type`| `string` |`None` | `True`   | Time series data yype e.g. 'ohlc', 'univariate' or 'rmsf'.                                                                                                                      |
+| `data_input`     | `object` | `True`   |`None`     | The financial time series data to be analysed. This can be a file path (e.g., 'folder/ohlc_data.csv') or a pandas DataFrame. Supported file formats include CSV, TSV, Parquet, Excel, JSON, and HTML. |
+| `reasoning_mode` | `string` | `True`   |`None`     | The reasoning strategy the algorithms use to make decisions: 'proactive' acts early with minimal information while 'reactive' waits for sufficient evidence before acting.                            |
+| `interval`       | `int`    | `False`   |`None`     | The frequency of the time series data. Use in conjunction with `interval_unit`.                                                                                                                       |
+| `interval_unit`  | `string` | `False`   |`None`     | The unit of time for the interval. Accepts one of the following values: `milliseconds`, 'seconds', 'minutes' and 'days'.                                                                                              |
+| `rmsf_stability`  | `int` | `False`   |`None`     | The maximum cumulative or averaged stability index permitted for the system. For example, setting `rmsf_stability = 10` for the 10-residue Chignolin peptide creates a 1:1 ratio. |
+| `rolling_path`  | `string` | `False`   |`False`     | Generates a rolling path forecast across input based on `rolling_path_window_size`, saved to `rolling_path_output_file`. |
+| `rolling_path_window_size`  | `int` | `5001`   |`False`     | Window size of rolling window e.g. 5001 data periods.
+| `rolling_path_file_ouput`  | `string` | `False`   |`None`     | The base name for the output file. For example, 'saved_output' will create a csv file 'saved_output.csv'.   |
+
+#### Time Series Types 
+
+| Option | Description                                                                                   |
+| :------- |  :-------------------------------------------------------------------------------------------- |
+| `ohlc`      | A series of multivariate data points recorded over time containing open, high, low, close values e.g. financial time series.  |
+| `univariate` | A series of data points recorded over time for a single variable e.g. temperature time series.  |
+| `rmsf`     | A series of Root Mean Square Fluctuation values points recorded over time commonly used in molecular modelling e.g. protein trajectories.     |                                     
+
+
+#### Timeframe Dependency
+
+| Option | Description                                                                                   |
+| :------- |  :-------------------------------------------------------------------------------------------- |
+| `True`  |  Anchors the state-space reconstruction to specific temporal units. The manifold is mapped against linear time.|
+| `False` | Treats data as an ordered sequence of morphisms. The CIL maps the system's state-space based on event-flow rather than clock-intervals. |
+
+
+#### Function Response 
+
+| Response | Type  | Description                                                                                   |
+| :------- | :---- | :-------------------------------------------------------------------------------------------- |
+| `1`      | `int` | Positive causal chain detected.                                                                      |
+| `0`      | `int` | No chain detected, indicates a multi-frequency overlap where opposing directional changes are occurring simultaneously on different timescales. |
+| `-1`     | `int` | Negative causal chain detected.                                                                      |
+
+
+
+#### Data Formats 
+
+**Example Data Format for OHLC Time Series**
+
+A placeholder value of 0 is required in the input fields for the next period (e.g. 2025-08-19 at 17:00 in the example below).
+
+| datetime            | open | high | low | close |
+| :------------------ | :--- | :--- | :-- | :---- |
+| 2025-01-23 09:00:00 | 100  | 110  | 90  | 95    |
+| 2025-01-23 10:00:00 | 95   | 98   | 86  | 88    |
+| ...                 | ...  | ...  | ... | ...   |
+| 2025-08-19 17:00:00 | 0    | 0    | 0   | 0     |
+
+A placeholder value of 0 is required in the input fields for the next period (e.g. 2025-08-19 at step 5001 in the example below).
+
+| step | open | high | low | close |
+| :--- | :--- | :--- | :-- | :---- |
+| 1    | 100  | 110  | 90  | 95    |
+| 2    | 95   | 98   | 86  | 88    |
+| ...  | ...  | ...  | ... | ...   |
+| 5001 | 0    | 0    | 0   | 0     |
+
+**Example Data Format for Univariate Time Series**
+
+A placeholder value of 0 is required in the input fields for the next period (e.g. 2025-08-19 at 17:00 in the example below).
+
+| datetime            | value | 
+| :------------------ | :--- | 
+| 2025-01-23 09:00:00 | 100  | 
+| 2025-01-23 10:00:00 | 95   |
+| ...  | ...  | 
+| 2025-08-19 17:00:00 | 0    | 
+
+A placeholder value of 0 is required in the input fields for the next period (e.g. 2025-08-19 at step 5001 in the example below).
+
+| step | value | 
+| :--- | :--- |
+| 1    | 100  | 
+| 2    | 95   | 
+| ...  | ...  | 
+| 5001 | 0    | 
+
+**Example Data Format for RMSF Time Series**
+
+A placeholder value of 0 is required in the input fields for the next period (e.g. 2025-08-19 at step 5001 in the example below).
+
+| step | rmsf | 
+| :--- | :--- |
+| 1    | 100  | 
+| 2    | 95   | 
+| ...  | ...  | 
+| 5001 | 0    | 
+
+
+#### Python Code Examples
+
+#### OHLC Forecast Path 
+
+##### Timeframe Independent
+
+```python
+import sumtyme
+
+# Initialise the sumtyme client with the provided API key from your dashboard
+client = sumtyme.client(apikey='your-api-key-here')
+
+forecast = client.forecast_path(
+    time_series_type = 'ohlc',
+    data_input='folder/ohlc_data.csv', # or can be a pandas dataframe 
+    reasoning_mode='reactive'
+)
+
+"""
+Returns a single key-value pair dictionary: {datetime_string:chain_detected}
+chain_detected values: 1, -1, 0 
+"""
+```
+
+#### OHLC Forecast Path 
+
+##### Timeframe Dependent
+
+
+```python
+import sumtyme
+
+# Initialise the sumtyme client with the provided API key from your dashboard
+client = sumtyme.client(apikey='your-api-key-here')
+
+
+result = client.forecast(data_input='folder/data.csv',
+                        reasoning_mode='reactive',
+                        interval=2,
+                        interval_unit='seconds',
+                        time_series_type='ohlc',
+                        timeframe_dependent=True
+                        )
+
+"""
+Returns a single key-value pair dictionary: {datetime_string:chain_detected}
+chain_detected values: 1, -1, 0 
+"""
+```
+
+
+
+#### Univariate Forecast Path 
+
+##### Timeframe Independent
+
+```python
+import sumtyme
+
+# Initialise the sumtyme client with the provided API key from your dashboard
+client = sumtyme.client(apikey='your-api-key-here')
+
+forecast = client.forecast_path(
+    time_series_type = 'univariate',
+    data_input='folder/univariate_data.csv', # or can be a pandas dataframe 
+    reasoning_mode='reactive'
+)
+
+"""
+Returns a single key-value pair dictionary: {datetime_string:chain_detected}
+chain_detected values: 1, -1, 0 
+"""
+```
+
+##### Timeframe Dependent
+
+```python
+import sumtyme
+
+# Initialise the sumtyme client with the provided API key from your dashboard
+client = sumtyme.client(apikey='your-api-key-here')
+
+forecast = client.forecast_path(
+    timeframe_dependent = True,
+    time_series_type = 'univariate',
+    data_input='folder/univariate_data.csv', # or can be a pandas dataframe 
+    interval=1,
+    interval_unit='minutes',
+    reasoning_mode='reactive'
+)
+
+"""
+Returns a single key-value pair dictionary: {datetime_string:chain_detected}
+chain_detected values: 1, -1, 0 
+"""
+```
+
+#### RMSF Forecast Path 
+
+```python
+import sumtyme
+
+# Initialise the sumtyme client with the provided API key from your dashboard
+client = sumtyme.client(apikey='your-api-key-here')
+
+forecast = client.forecast_path(
+    time_series_type = 'rmsf',
+    data_input='folder/rmsf_data.csv', # or can be a pandas dataframe 
+    reasoning_mode='reactive',
+    rmsf_weighting=10
+)
+
+"""
+Returns a single key-value pair dictionary: {datetime_string:chain_detected}
+chain_detected values: 1, -1, 0 
+"""
+```
+
+#### Rolling Path Forecast Example
+
+```python
+import sumtyme
+
+# Initialise the sumtyme client with the provided API key from your dashboard
+client = sumtyme.client(apikey='your-api-key-here')
+
+forecast = client.forecast_path(
+    time_series_type = 'ohlc',
+    data_input='folder/full_data.csv', # or can be a pandas dataframe 
+    reasoning_mode='reactive',
+    rolling_path = True,
+    rolling_path_window_size = 5001,
+    rolling_path_file_ouput = 'rolling_api_outputs'
+)
+
+"""
+Automatically saves each time step's rolling path forecast, appending the results to a single .csv file (e.g., './rolling_api_outputs.csv').
+"""
+```
+

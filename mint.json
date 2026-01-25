@@ -1,0 +1,59 @@
+{
+    "$schema": "https://mintlify.com/schema.json",
+    "name": "sumtyme.ai",
+    "logo": {
+        "dark": "/logo/negative-brandmark.svg",
+        "light": "/logo/positive-brandmark.svg"
+    },
+    "favicon": "/logo/positive-brandmark.svg",
+    "colors": {
+        "primary": "#141616",
+        "light": "#141616",
+        "anchors": {
+            "from": "#1a1818",
+            "to": "#1a1818"
+        }
+    },
+    "fonts": {
+      "body": {
+        "family": "Roboto"
+      },
+      "heading": {
+        "family": "Roboto"
+      }
+    },
+    "topbarLinks": [
+    
+      {
+            "name": "Discord",
+            "url": "https://discord.gg/F8SsSVydW"
+        }
+    ],
+    "navigation": [
+        {
+            "group": "Getting Started",
+            "pages": [
+                "/get-started"
+            ]
+        },
+        {
+            "group": "Quickstart Guides",
+            "pages": [
+                "/rolling-forecast/time-series"
+            ]
+        },
+        {
+            "group": "Forecast Path",
+            "pages": [
+                "/quickstart/finance"
+            ]
+        },
+        {
+            "group": "Analysis",
+            "pages": [
+                "/analysis/map-causal-chains"
+            ]
+        }
+        
+    ]
+}

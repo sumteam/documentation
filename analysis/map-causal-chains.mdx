@@ -1,0 +1,65 @@
+---
+title: "Propagation Tracker"
+---
+
+`map_causal_chains`
+
+This function maps how directional signals emerge at the highest frequency and propagate through a hierarchy of timeframes. By identifying the origin of a change, it constructs causal chains to quantify how micro-scale shifts evolve into structural change across expanding time scales.
+---
+
+#### Function Parameters
+
+| Parameter  | Type     | Required | Description                                                                                                                                 |
+| :--------- | :------- | :------- | :------------------------------------------------------------------------------------------------------------------------------------------ |
+| data_input | `list[tuple]` |True| A list of tuples containing the source (URL or local path) and the associated timeframe label (e.g. ('path/to/file.csv', '1m').|
+
+#### Supported Time Resolutions
+
+| Unit | Symbol | Seconds ($s$) |
+| :--- | :--- | :--- |
+| **Planck Time** | `pt` | $5.39 \times 10^{-44}$ |
+| **Yoctosecond** | `ys` | $10^{-24}$ |
+| **Zeptosecond** | `zs` | $10^{-21}$ |
+| **Attosecond** | `as` | $10^{-18}$ |
+| **Femtosecond** | `fs` | $10^{-15}$ |
+| **Picosecond** | `ps` | $10^{-12}$ |
+| **Nanosecond** | `ns` | $10^{-9}$ |
+| **Microsecond** | `us` | $10^{-6}$ |
+| **Millisecond** | `ms` | $10^{-3}$ |
+| **Second** | `s` | $1$ |
+| **Minute** | `m` | $60$ |
+| **Hour** | `h` | $3,600$ |
+| **Day** | `d` | $86,400$ |
+| **Week** | `w` | $604,800$ |
+
+---
+
+#### Python Code Example
+
+```python
+import sumtyme 
+
+# Initialise the sumtyme client with the provided API key from your dashboard
+client = sumtyme.client(apikey='your-api-key-here')
+
+
+data_to_analyse = [
+    ("./BTC_1m.csv", '1m'),
+    ("./BTC_5m.csv", '5m'),
+    ("./BTC_1h.csv", '1h')
+]
+
+
+data_input = [
+    ("https://raw.githubusercontent.com/.../BTC_1m.csv", '1m'),
+    ("https://raw.githubusercontent.com/.../BTC_5m.csv", '5m'),
+    ("https://raw.githubusercontent.com/.../BTC_1h.csv", '1h')
+]
+
+# The function processes these inputs to return two DataFrames:
+# 1. summary_df: The 'Initial Chains' showing the start and end status of each signal.
+# 2. details_df: The 'Propagation Details' logging every successful timeframe propagation marker.
+summary_df, details_df = map_causal_chains(github_files)
+
+
+```
