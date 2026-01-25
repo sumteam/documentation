@@ -23,6 +23,7 @@
       }
     },
     "topbarLinks": [
+    
       {
             "name": "Discord",
             "url": "https://discord.gg/F8SsSVydW"
@@ -32,33 +33,33 @@
         {
             "group": "Getting Started",
             "pages": [
-                "get-started",
-                "updates"
+                "/get-started"
             ]
         },
         {
             "group": "Quickstart Guides",
             "pages": [
-                "quickstart/finance"
+                "/forecast/time-series"
             ]
         },
         {
-            "group": "Forecast",
+            "group": "Forecast Path",
             "pages": [
-                "forecast/time series"
+                "/quickstart/finance"
             ]
         },
         {
             "group": "Analysis",
             "pages": [
-                "analysis/map-causal-chains"
+                "/analysis/map-causal-chains"
             ]
         },
         {
             "group": "Updates",
             "pages": [
-                "updates"
+                "/updates"
             ]
         }
+        
     ]
 }
