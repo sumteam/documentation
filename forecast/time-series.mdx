@@ -55,7 +55,7 @@ The function returns a dictionary containing the target timestamp/index and the 
 
 
 
-#### Data Input Specifications
+#### Python Examples
 
 **A. Timeframe Dependent (Temporal Mapping)**
 
@@ -66,8 +66,8 @@ The function returns a dictionary containing the target timestamp/index and the 
 
     The `forecast_path` function requires a specific data length to establish causal context. To forecast the next state, you must append a final "placeholder" row (in this example: 2025-08-19 17:00:00).
 
-    **Required Input Structure**
-    | datetime (Index) | open | high | low | close |
+   
+    | datetime | open | high | low | close |
     | :------------------ | :--- | :--- | :-- | :---- |
     | 2025-01-23 09:00:00 | 100.20 | 110.50 | 90.10 | 95.30 |
     | 2025-01-23 10:00:00 | 95.30  | 98.10  | 86.40 | 88.20 |
@@ -75,13 +75,12 @@ The function returns a dictionary containing the target timestamp/index and the 
     | **2025-08-19 17:00:00** | **0** | **0** | **0** | **0** |
 
     <Note>
-        **N=5001 Requirement**: The algorithm utilises 5,000 preceding periods to reconstruct the system's state-space. You must include a 5001st row that acts as a 'placeholder'.
+        N=5001 Requirement: The algorithm utilises 5,000 preceding periods to reconstruct the system's state-space. You must include a 5001st row that acts as a 'placeholder'.
     </Note>
 
 
     ```python
     import sumtyme
-    import pandas as pd
 
     # Initialise the client
     client = sumtyme.client(apikey='your-api-key-here')
@@ -112,15 +111,14 @@ The function returns a dictionary containing the target timestamp/index and the 
     | 2025-01-23 09:00:00 | 100  | 
     | 2025-01-23 10:00:00 | 95   |
     | *[... 4,998 rows]*  | ...  | 
-    | 2025-08-19 17:00:00 | 0    | 
+    | **2025-08-19 17:00:00** | **0**    | 
 
     <Note>
-        **N=5001 Requirement**: The algorithm utilises 5,000 preceding periods to reconstruct the system's state-space. You must include a 5001st row that acts as a 'placeholder'.
+        N=5001 Requirement: The algorithm utilises 5,000 preceding periods to reconstruct the system's state-space. You must include a 5001st row that acts as a 'placeholder'.
     </Note>
 
     ```python
     import sumtyme
-    import pandas as pd
 
     # Initialise the client
     client = sumtyme.client(apikey='your-api-key-here')
@@ -155,7 +153,7 @@ The function returns a dictionary containing the target timestamp/index and the 
 
         The `forecast_path` function requires a specific data length to establish causal context. To forecast the next state, you must append a final "placeholder" row (in this example: 5001).
 
-        **Required Input Structure**
+        
         | step | open | high | low | close |
         | :--- | :--- | :--- | :-- | :---- |
         | 1    | 100  | 110  | 90  | 95    |
@@ -164,13 +162,12 @@ The function returns a dictionary containing the target timestamp/index and the 
         | **5001** | **0** | **0** | **0** | **0** |
 
         <Note>
-            **N=5001 Requirement**: The algorithm utilises 5,000 preceding periods to reconstruct the system's state-space. You must include a 5001st row that acts as a 'placeholder'.
+            N=5001 Requirement: The algorithm utilises 5,000 preceding periods to reconstruct the system's state-space. You must include a 5001st row that acts as a 'placeholder'.
         </Note>
 
 
         ```python
         import sumtyme
-        import pandas as pd
 
         # Initialise the client
         client = sumtyme.client(apikey='your-api-key-here')
@@ -197,15 +194,14 @@ The function returns a dictionary containing the target timestamp/index and the 
     | 1 | 100  | 
     | 2 | 95   |
     | *[... 4,998 rows]*  | ...  | 
-    | **5001** | 0    | 
+    | **5001** | **0**    | 
 
     <Note>
-        **N=5001 Requirement**: The algorithm utilises 5,000 preceding periods to reconstruct the system's state-space. You must include a 5001st row that acts as a 'placeholder'.
+        N=5001 Requirement: The algorithm utilises 5,000 preceding periods to reconstruct the system's state-space. You must include a 5001st row that acts as a 'placeholder'.
     </Note>
 
     ```python
     import sumtyme
-    import pandas as pd
 
     # Initialise the client
     client = sumtyme.client(apikey='your-api-key-here')
@@ -237,15 +233,14 @@ The function returns a dictionary containing the target timestamp/index and the 
     | 1 | 100  | 
     | 2 | 95   |
     | *[... 4,998 rows]*  | ...  | 
-    | **5001** | 0    | 
+    | **5001** | **0**    | 
 
     <Note>
-        **N=5001 Requirement**: The algorithm utilises 5,000 preceding periods to reconstruct the system's state-space. You must include a 5001st row that acts as a 'placeholder'.
+        N=5001 Requirement: The algorithm utilises 5,000 preceding periods to reconstruct the system's state-space. You must include a 5001st row that acts as a 'placeholder'.
     </Note>
 
     ```python
     import sumtyme
-    import pandas as pd
 
     # Initialise the client
     client = sumtyme.client(apikey='your-api-key-here')
