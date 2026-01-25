@@ -2,23 +2,14 @@
 title: "Forecast Path"
 ---
 
-`forecast_path`
-
-This function analyses the causal structure of a time series to identify two structural states:
+`forecast_path` analyses the causal structure of a time series to identify two structural states:
 
 - **Initiation:** Signals the emergence of a new causal trajectory, showing the start of a new causal chain.
 - **Persistence:** Validates the continuation of an established trajectory, indicating the current causal chain is still evolving.
 
 ---
 
-#### Data Input 
-
-`Required data periods (N): 5000 preceding data periods + 1 future-step period (N=5001) 
-
-<Note>**FIFO Logic**: As a new data point arrives, the oldest is discarded. This **First-In, First-Out** method allows the algorithm to update its state space at every incremental step.</Note>
-
-
-#### Function Parameters
+#### Parameter Parameters
 
 | Parameter | Type | Default | Required | Description |
 | :--- | :--- | :--- | :---: | :--- |
@@ -33,7 +24,9 @@ This function analyses the causal structure of a time series to identify two str
 | `rolling_path_window_size` | `int` | `5001` | `False` | Window size of rolling window, e.g. 5001 data periods. |
 | `rolling_path_file_output` | `string` | `None` | `False` | The base name for the output file (e.g. 'saved_output' creates 'saved_output.csv'). |
 
-#### Time Series Types 
+#### Configuration Options
+
+**A. Time Series Type**
 
 | Option | Description                                                                                   |
 | :------- |  :-------------------------------------------------------------------------------------------- |
@@ -42,7 +35,7 @@ This function analyses the causal structure of a time series to identify two str
 | `rmsf`     | A series of Root Mean Square Fluctuation values points recorded over time commonly used in molecular modelling e.g. protein trajectories.     |                                     
 
 
-#### Timeframe Dependency
+**Timeframe Dependency**
 
 | Option | Description                                                                                   |
 | :------- |  :-------------------------------------------------------------------------------------------- |
@@ -50,7 +43,9 @@ This function analyses the causal structure of a time series to identify two str
 | `False` | Treats data as an ordered sequence of morphisms. The CIL maps the system's state-space based on event-flow rather than clock-intervals. |
 
 
-#### Function Response 
+#### Interpreting Function Response
+
+The function returns a dictionary containing the target timestamp/index and the detected causal state: {"target_anchor": signal}.
 
 | Response | Type  | Description                                                                                   |
 | :------- | :---- | :-------------------------------------------------------------------------------------------- |
@@ -62,7 +57,7 @@ This function analyses the causal structure of a time series to identify two str
 
 #### Data Input Specifications
 
-##### Timeframe Dependent (Temporal Mapping)
+**A. Timeframe Dependent (Temporal Mapping)**
 
 <Note>Use this configuration to map the system's state-space to specific clock-intervals (milliseocnds, seconds, minutes, days). </Note>
 
@@ -149,7 +144,7 @@ This function analyses the causal structure of a time series to identify two str
 
 </AccordionGroup>
 
-##### Timeframe Independent (Event-Flow Mapping)
+**B. Timeframe Independent (Event-Flow Mapping)**
 
 <Note>Use this configuration to map the system's state-space based on sequential event-flow rather than linear time.</Note>
 
@@ -276,7 +271,7 @@ This function analyses the causal structure of a time series to identify two str
 
 </AccordionGroup>
 
-##### Rolling Forecast
+**C. Automated Rolling Forecast**
 
 <Accordion title="Rolling Forecast">
 

@@ -2,9 +2,8 @@
 title: "Track Causal Chains"
 ---
 
-`map_causal_chains`
+`map_causal_chains` maps the trajectory of directional signals as they emerge at the microscale and propagate through a hierarchy of increasing timeframes. By identifying the origin of a change, it constructs causal chains to quantify how micro-scale shifts evolve into structural change across expanding time scales.
 
-This function maps the trajectory of directional signals as they emerge at the microscale and propagate through a hierarchy of increasing timeframes. By identifying the origin of a change, it constructs causal chains to quantify how micro-scale shifts evolve into structural change across expanding time scales.
 ---
 
 #### Function Parameters
@@ -54,7 +53,7 @@ api_outputs = [
 ]
 
 
-Execute Causal Mapping
+# Execute Causal Mapping
 # initial_chain_starts: Specific datetime where a chain first starts based on observed timeframes
 # causal_chain_details: A detailed breakdown of how the signal moved across different timeframes.
 initial_chain_starts, causal_chain_details = client.map_causal_chains(api_outputs=scales)

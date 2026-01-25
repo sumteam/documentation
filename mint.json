@@ -39,13 +39,14 @@
         {
             "group": "Quickstart Guides",
             "pages": [
-                "/forecast/time-series"
+                "/quickstart/finance"
+                
             ]
         },
         {
-            "group": "Forecast Path",
+            "group": "Forecast",
             "pages": [
-                "/quickstart/finance"
+                "/forecast/time-series"
             ]
         },
         {
