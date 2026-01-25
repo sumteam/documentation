@@ -1,7 +1,6 @@
 {
     "$schema": "https://mintlify.com/schema.json",
     "name": "sumtyme.ai",
-    "theme": "mint",
     "logo": {
         "dark": "/logo/negative-brandmark.svg",
         "light": "/logo/positive-brandmark.svg"
