@@ -44,15 +44,21 @@
             ]
         },
         {
-            "group": "Forecast Path",
+            "group": "Forecast",
             "pages": [
-                "forecast/path"
+                "forecast/time series"
             ]
         },
         {
             "group": "Analysis",
             "pages": [
                 "analysis/map-causal-chains"
+            ]
+        },
+        {
+            "group": "Updates",
+            "pages": [
+                "updates"
             ]
         }
     ]
