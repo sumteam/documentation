@@ -24,7 +24,6 @@
       }
     },
     "topbarLinks": [
-    
       {
             "name": "Discord",
             "url": "https://discord.gg/F8SsSVydW"
@@ -34,27 +33,27 @@
         {
             "group": "Getting Started",
             "pages": [
-                "/get-started"
+                "get-started",
+                "updates"
             ]
         },
         {
             "group": "Quickstart Guides",
             "pages": [
-                "/rolling-forecast/time-series"
+                "quickstart/finance"
             ]
         },
         {
             "group": "Forecast Path",
             "pages": [
-                "/quickstart/finance"
+                "forecast/path"
             ]
         },
         {
             "group": "Analysis",
             "pages": [
-                "/analysis/map-causal-chains"
+                "analysis/map-causal-chains"
             ]
         }
-        
     ]
 }
