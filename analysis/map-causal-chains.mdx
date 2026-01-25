@@ -4,7 +4,7 @@ title: "Propagation Tracker"
 
 `map_causal_chains`
 
-This function maps how directional signals emerge at the highest frequency and propagate through a hierarchy of timeframes. By identifying the origin of a change, it constructs causal chains to quantify how micro-scale shifts evolve into structural change across expanding time scales.
+This function maps the trajectory of directional signals as they emerge at the microscale and propagate through a hierarchy of increasing timeframes. By identifying the origin of a change, it constructs causal chains to quantify how micro-scale shifts evolve into structural change across expanding time scales.
 ---
 
 #### Function Parameters
@@ -42,24 +42,29 @@ import sumtyme
 # Initialise the sumtyme client with the provided API key from your dashboard
 client = sumtyme.client(apikey='your-api-key-here')
 
-
-data_to_analyse = [
-    ("./BTC_1m.csv", '1m'),
-    ("./BTC_5m.csv", '5m'),
-    ("./BTC_1h.csv", '1h')
+api_outputs = [
+    ("https://raw.githubusercontent.com/sumteam/data_store/main/GLD/api_outputs/GLD_1s_reactive_outputs.csv", '1s'),
+    ("https://raw.githubusercontent.com/sumteam/data_store/main/GLD/api_outputs/GLD_5s_reactive_outputs.csv", '5s'),
+    ("https://raw.githubusercontent.com/sumteam/data_store/main/GLD/api_outputs/GLD_15s_reactive_outputs.csv", '15s'),
+    ("https://raw.githubusercontent.com/sumteam/data_store/main/GLD/api_outputs/GLD_30s_reactive_outputs.csv", '30s'),
+    ("https://raw.githubusercontent.com/sumteam/data_store/main/GLD/api_outputs/GLD_1m_reactive_outputs.csv", '1m'),
+    ("https://raw.githubusercontent.com/sumteam/data_store/main/GLD/api_outputs/GLD_2m_reactive_outputs.csv", '2m'),
+    ("https://raw.githubusercontent.com/sumteam/data_store/main/GLD/api_outputs/GLD_5m_reactive_outputs.csv", '5m'),
+    ("https://raw.githubusercontent.com/sumteam/data_store/main/GLD/api_outputs/GLD_10m_reactive_outputs.csv", '10m'),
 ]
 
 
-data_input = [
-    ("https://raw.githubusercontent.com/.../BTC_1m.csv", '1m'),
-    ("https://raw.githubusercontent.com/.../BTC_5m.csv", '5m'),
-    ("https://raw.githubusercontent.com/.../BTC_1h.csv", '1h')
-]
+Execute Causal Mapping
+# initial_chain_starts: Specific datetime where a chain first starts based on observed timeframes
+# causal_chain_details: A detailed breakdown of how the signal moved across different timeframes.
+initial_chain_starts, causal_chain_details = client.map_causal_chains(api_outputs=scales)
 
-# The function processes these inputs to return two DataFrames:
-# 1. summary_df: The 'Initial Chains' showing the start and end status of each signal.
-# 2. details_df: The 'Propagation Details' logging every successful timeframe propagation marker.
-summary_df, details_df = map_causal_chains(github_files)
+Output results for review
+print("--- Chain Inception Points ---")
+print(initial_chain_starts)
+
+print("\n--- Detailed Causal Path Analysis ---")
+print(causal_chain_details])
 
 
 ```
