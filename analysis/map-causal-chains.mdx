@@ -58,12 +58,12 @@ api_outputs = [
 # causal_chain_details: A detailed breakdown of how the signal moved across different timeframes.
 initial_chain_starts, causal_chain_details = client.map_causal_chains(api_outputs=scales)
 
-Output results for review
+# Output results for review
 print("--- Chain Inception Points ---")
 print(initial_chain_starts)
 
 print("\n--- Detailed Causal Path Analysis ---")
-print(causal_chain_details])
+print(causal_chain_details)
 
 
 ```
