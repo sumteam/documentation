@@ -54,8 +54,8 @@ api_outputs = [
 
 
 # Execute Causal Mapping
-# initial_chain_starts: Specific datetime where a chain first starts based on observed timeframes
-# causal_chain_details: A detailed breakdown of how the signal moved across different timeframes.
+# initial_chain_starts (dataframe): Specific datetime where a chain first starts based on observed timeframes
+# causal_chain_details (dataframe): A detailed breakdown of how the signal moved across different timeframes.
 initial_chain_starts, causal_chain_details = client.map_causal_chains(api_outputs=scales)
 
 # Output results for review
