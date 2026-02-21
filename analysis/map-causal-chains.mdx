@@ -41,6 +41,7 @@ import sumtyme
 # Initialise the sumtyme client with the provided API key from your dashboard
 client = sumtyme.client(apikey='your-api-key-here')
 
+# Ensure API outputs start from the same timestamp
 api_outputs = [
     ("https://raw.githubusercontent.com/sumteam/data_store/main/GLD/api_outputs/GLD_1s_reactive_outputs.csv", '1s'),
     ("https://raw.githubusercontent.com/sumteam/data_store/main/GLD/api_outputs/GLD_5s_reactive_outputs.csv", '5s'),
